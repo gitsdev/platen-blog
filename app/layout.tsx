@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import './brand.css';
 const siteUrl = process.env.SITE_URL ?? 'https://blog.platben.com';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

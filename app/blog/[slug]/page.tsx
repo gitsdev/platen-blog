@@ -28,7 +28,7 @@ export default async function BlogArticle({params}:Props) {
   if (!blog) notFound();
   const jsonLd = { '@context':'https://schema.org', '@type':'Article', headline:blog.title, description:blog.excerpt, image:blog.featuredImage?[blog.featuredImage]:undefined, datePublished:blog.publishDate, dateModified:blog.updatedAt, author:blog.authorName?{'@type':'Person',name:blog.authorName,url:blog.authorUrl}:undefined, publisher:{'@type':'Organization',name:'Platinum Benefit Services'}, mainEntityOfPage:`${process.env.SITE_URL ?? 'https://blog.platben.com'}/blog/${blog.slug}` };
   return <main>
-    <header className="site-header"><a className="brand" href="/"><span className="brand-mark">PB</span><span><strong>PLATINUM BENEFIT</strong><small>THE JOURNAL</small></span></a><nav aria-label="Main navigation"><a href="/#latest">LATEST</a><a href="https://platben.com/">MAIN WEBSITE</a></nav></header>
+    <header className="site-header"><a className="brand" href="/"><img src="/brand-logo.webp" alt="Platinum Benefit Services"/><span className="journal-label">THE JOURNAL</span></a><nav aria-label="Main navigation"><a href="/#latest">LATEST</a><a href="https://platben.com/">MAIN WEBSITE</a></nav></header>
     <article className="article-shell">
       <a className="article-back" href="/"><ArrowLeft size={16}/> BACK TO THE JOURNAL</a>
       <header className="article-header"><span className="category">{blog.categories?.[0] ?? 'Insights'}</span><h1>{blog.title}</h1>{blog.excerpt&&<p className="article-deck">{blog.excerpt}</p>}<div className="post-meta"><span>{formatDate(blog.publishDate)}</span><span><Clock3 size={14}/> {readingTime(blog)}</span>{blog.authorName&&<span>By {blog.authorName}</span>}</div></header>
