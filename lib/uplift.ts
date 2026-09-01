@@ -28,12 +28,17 @@ const API_BASE = 'https://api.upliftai.co/api/public/v1';
 async function apiFetch(path: string) {
   const token = process.env.UPLIFTAI_API_TOKEN;
   if (!token) return null;
-  const response = await fetch(`${API_BASE}${path}`, {
-    headers: { Authorization: `Bearer ${token}` },
-    next: { revalidate: 300 },
-  });
-  if (!response.ok) return null;
-  return response.json();
+  try {
+    const response = await fetch(`${API_BASE}${path}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      next: { revalidate: 300 },
+    });
+    if (!response.ok) return null;
+    return await response.json();
+  } catch (error) {
+    console.error(`UpliftAI request failed for ${path}`, error);
+    return null;
+  }
 }
 
 export async function getBlogs(limit = 12): Promise<Blog[]> {
