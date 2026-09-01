@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { ArrowLeft, Clock3 } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { formatDate, getBlog, readingTime } from '@/lib/uplift';
+import { getSiteUrl } from '@/lib/site';
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -26,7 +27,7 @@ export default async function BlogArticle({params}:Props) {
   const {slug} = await params;
   const blog = await getBlog(slug);
   if (!blog) notFound();
-  const jsonLd = { '@context':'https://schema.org', '@type':'Article', headline:blog.title, description:blog.excerpt, image:blog.featuredImage?[blog.featuredImage]:undefined, datePublished:blog.publishDate, dateModified:blog.updatedAt, author:blog.authorName?{'@type':'Person',name:blog.authorName,url:blog.authorUrl}:undefined, publisher:{'@type':'Organization',name:'Platinum Benefit Services'}, mainEntityOfPage:`${process.env.SITE_URL ?? 'https://blog.platben.com'}/blog/${blog.slug}` };
+  const jsonLd = { '@context':'https://schema.org', '@type':'Article', headline:blog.title, description:blog.excerpt, image:blog.featuredImage?[blog.featuredImage]:undefined, datePublished:blog.publishDate, dateModified:blog.updatedAt, author:blog.authorName?{'@type':'Person',name:blog.authorName,url:blog.authorUrl}:undefined, publisher:{'@type':'Organization',name:'Platinum Benefit Services'}, mainEntityOfPage:`${getSiteUrl()}/blog/${blog.slug}` };
   return <main>
     <header className="site-header"><a className="brand" href="/"><img src="/brand-logo.webp" alt="Platinum Benefit Services"/><span className="journal-label">THE JOURNAL</span></a><nav aria-label="Main navigation"><a href="/#latest">LATEST</a><a href="https://platben.com/">MAIN WEBSITE</a></nav></header>
     <article className="article-shell">

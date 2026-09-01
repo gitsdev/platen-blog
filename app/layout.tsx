@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
+import { getSiteUrl } from '@/lib/site';
 import './globals.css';
 import './brand.css';
-const siteUrl = process.env.SITE_URL ?? 'https://blog.platben.com';
+const siteUrl = getSiteUrl();
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default:'The Platinum Benefit Journal | Long-Term Care Guidance', template:'%s | Platinum Benefit Journal' },
