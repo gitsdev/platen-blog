@@ -18,3 +18,9 @@
 .article-content li{display:list-item;padding-left:.35em}
 .article-content li::marker{color:#899a55;font-weight:700}
 .article-content li>p{margin:.35em 0}
+
+/* Use each post's CMS image; retain the PB artwork only as a true fallback. */
+.post-art.has-image:before,.post-art.has-image>span{display:none}
+.post-art.has-image{display:block;background:#e8e5dc}
+.post-art.has-image img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .35s ease}
+.post-card:hover .post-art.has-image img{transform:scale(1.025)}
